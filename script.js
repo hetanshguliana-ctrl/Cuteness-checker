@@ -1,6 +1,5 @@
 // ========================================
-// 🧪 BIRTHDAY WEBSITE - TEST MODE
-// Countdown: 1 minute from page load
+// 🧪 TEST MODE — 1 MINUTE
 // ========================================
 
 const daysEl = document.getElementById("days");
@@ -11,11 +10,9 @@ const secondsEl = document.getElementById("seconds");
 const lock = document.getElementById("lock");
 const lockedMessage = document.getElementById("lockedMessage");
 const bottomMessage = document.getElementById("bottomMessage");
+const celebration = document.getElementById("celebration");
 
-// ----------------------------------------
-// TEST TIMER
-// ----------------------------------------
-
+// 1 minute from when the page loads
 const targetTime = new Date(Date.now() + 60 * 1000);
 
 let unlocked = false;
@@ -26,6 +23,7 @@ function updateCountdown() {
     const difference = targetTime.getTime() - now.getTime();
 
     if (difference <= 0) {
+
         daysEl.textContent = "00";
         hoursEl.textContent = "00";
         minutesEl.textContent = "00";
@@ -49,9 +47,9 @@ function updateCountdown() {
 }
 
 
-// ----------------------------------------
-// UNLOCK
-// ----------------------------------------
+// ========================================
+// 🔓 UNLOCK SURPRISE
+// ========================================
 
 function unlockSurprise() {
 
@@ -59,32 +57,30 @@ function unlockSurprise() {
 
     unlocked = true;
 
-    if (lock) {
-        lock.textContent = "🔓";
-    }
+    // Unlock the box
+    lock.textContent = "🔓";
 
-    if (lockedMessage) {
-        lockedMessage.innerHTML = `
-            <h2>✨ It's time.</h2>
-            <p>Your surprise is finally unlocked ❤️</p>
-        `;
-    }
+    lockedMessage.innerHTML = `
+        <h2>✨ It's time.</h2>
+        <p>Your surprise is finally unlocked ❤️</p>
+    `;
 
-    if (bottomMessage) {
-        bottomMessage.textContent = "The surprise is unlocked. ❤️";
-    }
+    bottomMessage.textContent =
+        "The surprise is unlocked. ❤️";
 
-    celebration();
+    // SHOW THE BIG CELEBRATION
+    celebration.classList.remove("hidden");
+
+    // Start celebration
+    startCelebration();
 }
 
 
-// ----------------------------------------
-// SIMPLE CELEBRATION
-// ----------------------------------------
+// ========================================
+// 🎉 CELEBRATION
+// ========================================
 
-function celebration() {
-
-    document.body.classList.add("unlocked");
+function startCelebration() {
 
     for (let i = 0; i < 80; i++) {
 
@@ -131,9 +127,9 @@ function celebration() {
 }
 
 
-// ----------------------------------------
-// START TIMER
-// ----------------------------------------
+// ========================================
+// ⏳ START
+// ========================================
 
 updateCountdown();
 
