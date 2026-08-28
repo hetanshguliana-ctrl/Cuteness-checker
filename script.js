@@ -68,11 +68,15 @@ function unlockSurprise() {
     bottomMessage.textContent =
         "The surprise is unlocked. ❤️";
 
-    // SHOW THE BIG CELEBRATION
+    // FORCE THE CELEBRATION TO SHOW
     celebration.classList.remove("hidden");
+    celebration.style.display = "flex";
+    celebration.style.opacity = "1";
+    celebration.style.visibility = "visible";
 
-    // Start celebration
+    // Start hearts/confetti
     startCelebration();
+}
 }
 
 
