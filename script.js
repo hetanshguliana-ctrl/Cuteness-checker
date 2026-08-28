@@ -23,7 +23,7 @@ let unlocked = false;
 // ======================================
 
 const targetTime =      
-    new Date("2026-09-03T00:00:00+05:30");
+    new Date(""August 28, 2026 08:08:00"");
 
 // ======================================
 // COUNTDOWN
@@ -31,7 +31,7 @@ const targetTime =
 
 function updateCountdown() {
 
-    const now = new Date();
+    const now = new Date("August 28, 2026 08:08:00");
 
     const difference =
         targetTime.getTime() - now.getTime();
