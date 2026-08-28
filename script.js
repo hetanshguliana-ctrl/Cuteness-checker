@@ -1,7 +1,7 @@
-// ======================================
-// REAL BIRTHDAY COUNTDOWN
-// September 3, 2026 — 00:00 AM IST
-// ======================================
+// ========================================
+// 🧪 BIRTHDAY WEBSITE - TEST MODE
+// Countdown: 1 minute from page load
+// ========================================
 
 const daysEl = document.getElementById("days");
 const hoursEl = document.getElementById("hours");
@@ -12,88 +12,46 @@ const lock = document.getElementById("lock");
 const lockedMessage = document.getElementById("lockedMessage");
 const bottomMessage = document.getElementById("bottomMessage");
 
-const celebration =
-    document.getElementById("celebration");
+// ----------------------------------------
+// TEST TIMER
+// ----------------------------------------
+
+const targetTime = new Date(Date.now() + 60 * 1000);
 
 let unlocked = false;
 
-
-// ======================================
-// BIRTHDAY TIME
-// ======================================
-
-const targetTime =      
-    new Date(""August 28, 2026 08:08:00"");
-
-// ======================================
-// COUNTDOWN
-// ======================================
-
 function updateCountdown() {
 
-    const now = new Date("August 28, 2026 08:08:00");
-
-    const difference =
-        targetTime.getTime() - now.getTime();
-
+    const now = new Date();
+    const difference = targetTime.getTime() - now.getTime();
 
     if (difference <= 0) {
-
         daysEl.textContent = "00";
         hoursEl.textContent = "00";
         minutesEl.textContent = "00";
         secondsEl.textContent = "00";
 
         unlockSurprise();
-
         return;
     }
 
+    const totalSeconds = Math.floor(difference / 1000);
 
-    const days =
-        Math.floor(
-            difference /
-            (1000 * 60 * 60 * 24)
-        );
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
 
-
-    const hours =
-        Math.floor(
-            (difference /
-            (1000 * 60 * 60)) % 24
-        );
-
-
-    const minutes =
-        Math.floor(
-            (difference /
-            (1000 * 60)) % 60
-        );
-
-
-    const seconds =
-        Math.floor(
-            (difference / 1000) % 60
-        );
-
-
-    daysEl.textContent =
-        String(days).padStart(2, "0");
-
-    hoursEl.textContent =
-        String(hours).padStart(2, "0");
-
-    minutesEl.textContent =
-        String(minutes).padStart(2, "0");
-
-    secondsEl.textContent =
-        String(seconds).padStart(2, "0");
+    daysEl.textContent = String(days).padStart(2, "0");
+    hoursEl.textContent = String(hours).padStart(2, "0");
+    minutesEl.textContent = String(minutes).padStart(2, "0");
+    secondsEl.textContent = String(seconds).padStart(2, "0");
 }
 
 
-// ======================================
+// ----------------------------------------
 // UNLOCK
-// ======================================
+// ----------------------------------------
 
 function unlockSurprise() {
 
@@ -101,141 +59,91 @@ function unlockSurprise() {
 
     unlocked = true;
 
-    lock.textContent = "🔓";
-
-
-    lockedMessage.innerHTML = `
-
-        <h2>✨ You made it.</h2>
-
-        <p>
-            Okay... you actually waited. 😭❤️
-        </p>
-
-        <span>
-            But this isn't the whole surprise yet...
-        </span>
-
-    `;
-
-
-    bottomMessage.textContent =
-        "This is only the beginning. 🎁";
-
-
-    startCelebration();
-}
-
-
-// ======================================
-// CELEBRATION
-// ======================================
-
-function startCelebration() {
-
-    celebration.classList.remove("hidden");
-
-    createParticles();
-}
-
-
-// ======================================
-// FLOATING HEARTS & SPARKLES
-// ======================================
-
-function createParticles() {
-
-    const symbols = [
-        "♥",
-        "♡",
-        "✦",
-        "✧",
-        "✨",
-        "♥",
-        "♡"
-    ];
-
-
-    for (let i = 0; i < 90; i++) {
-
-        const particle =
-            document.createElement("div");
-
-
-        particle.textContent =
-            symbols[
-                Math.floor(
-                    Math.random() *
-                    symbols.length
-                )
-            ];
-
-
-        particle.style.position =
-            "fixed";
-
-        particle.style.left =
-            Math.random() * 100 + "vw";
-
-        particle.style.top =
-            "-40px";
-
-        particle.style.fontSize =
-            (12 + Math.random() * 25) + "px";
-
-        particle.style.opacity =
-            0.4 + Math.random() * 0.6;
-
-        particle.style.zIndex =
-            "2000";
-
-        particle.style.pointerEvents =
-            "none";
-
-
-        const duration =
-            3 + Math.random() * 5;
-
-
-        particle.style.transition =
-            `transform ${duration}s linear,
-             opacity ${duration}s linear`;
-
-
-        document.body.appendChild(
-            particle
-        );
-
-
-        setTimeout(() => {
-
-            particle.style.transform =
-                `translateY(110vh)
-                 rotate(${Math.random() * 360}deg)`;
-
-            particle.style.opacity = "0";
-
-        }, 50);
-
-
-        setTimeout(() => {
-
-            particle.remove();
-
-        }, duration * 1000 + 500);
-
+    if (lock) {
+        lock.textContent = "🔓";
     }
 
+    if (lockedMessage) {
+        lockedMessage.innerHTML = `
+            <h2>✨ It's time.</h2>
+            <p>Your surprise is finally unlocked ❤️</p>
+        `;
+    }
+
+    if (bottomMessage) {
+        bottomMessage.textContent = "The surprise is unlocked. ❤️";
+    }
+
+    celebration();
 }
 
 
-// ======================================
+// ----------------------------------------
+// SIMPLE CELEBRATION
+// ----------------------------------------
+
+function celebration() {
+
+    document.body.classList.add("unlocked");
+
+    for (let i = 0; i < 80; i++) {
+
+        const piece = document.createElement("div");
+
+        piece.textContent =
+            Math.random() > 0.5 ? "✨" : "❤️";
+
+        piece.style.position = "fixed";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.top = "-30px";
+        piece.style.fontSize =
+            (15 + Math.random() * 20) + "px";
+        piece.style.zIndex = "9999";
+        piece.style.pointerEvents = "none";
+
+        document.body.appendChild(piece);
+
+        const duration =
+            2000 + Math.random() * 3000;
+
+        piece.animate(
+            [
+                {
+                    transform: "translateY(0) rotate(0deg)",
+                    opacity: 1
+                },
+                {
+                    transform:
+                        `translateY(110vh) rotate(${Math.random() * 720}deg)`,
+                    opacity: 0
+                }
+            ],
+            {
+                duration: duration,
+                easing: "ease-out"
+            }
+        );
+
+        setTimeout(() => {
+            piece.remove();
+        }, duration);
+    }
+}
+
+
+// ----------------------------------------
 // START TIMER
-// ======================================
+// ----------------------------------------
 
 updateCountdown();
 
-setInterval(
-    updateCountdown,
-    1000
-);
+const timer = setInterval(() => {
+
+    if (unlocked) {
+        clearInterval(timer);
+        return;
+    }
+
+    updateCountdown();
+
+}, 1000);
