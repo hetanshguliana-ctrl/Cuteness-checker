@@ -5,56 +5,454 @@
 body {
     margin: 0;
     min-height: 100vh;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #4b2b42,
+            #21131e 55%,
+            #100a0f
+        );
+
+    color: #fff4f7;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #ffd6e7, #f3d7ff);
-    overflow: hidden;
+
+    overflow-x: hidden;
 }
 
-.container {
-    width: 90%;
-    max-width: 600px;
-    padding: 45px 30px;
+
+/* MAIN CARD */
+
+.card {
+    width: min(90%, 720px);
+
+    padding: 55px 35px;
+
     text-align: center;
-    background: rgba(255, 255, 255, 0.85);
-    border-radius: 30px;
-    box-shadow: 0 15px 40px rgba(120, 60, 120, 0.2);
+
+    background: rgba(255, 255, 255, 0.07);
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    border-radius: 28px;
+
+    backdrop-filter: blur(15px);
+
+    box-shadow:
+        0 25px 90px rgba(0, 0, 0, 0.5);
+
+    animation: pageAppear 1.2s ease;
 }
+
+
+/* HEART */
+
+.heart {
+    font-size: 48px;
+
+    margin-bottom: 10px;
+
+    animation: heartbeat 2s infinite;
+}
+
+
+/* SMALL TITLE */
+
+.eyebrow {
+    font-size: 13px;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+    opacity: 0.65;
+}
+
+
+/* MAIN TITLE */
 
 h1 {
-    margin-top: 0;
-    font-size: 48px;
-    color: #ff4f91;
+    font-size: clamp(34px, 7vw, 58px);
+
+    font-weight: normal;
+
+    line-height: 1.15;
+
+    margin: 20px 0;
 }
 
-.subtitle {
-    font-size: 18px;
-    line-height: 1.6;
-    color: #555;
-}
 
-button {
-    margin-top: 20px;
-    padding: 14px 25px;
-    border: none;
-    border-radius: 30px;
-    background: #ff5c9a;
-    color: white;
+/* MESSAGE */
+
+.message {
+    max-width: 520px;
+
+    margin: auto;
+
     font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.2s;
+
+    line-height: 1.8;
+
+    opacity: 0.8;
 }
 
-button:hover {
-    transform: scale(1.08);
+
+/* DIVIDER */
+
+.divider {
+    margin: 28px 0;
+
+    opacity: 0.5;
+
+    font-size: 20px;
 }
-video {
-    width: 100%;
-    max-width: 400px;
-    border-radius: 20px;
+
+
+/* COUNTDOWN */
+
+.countdown-title {
+    font-size: 14px;
+
+    letter-spacing: 2px;
+
+    opacity: 0.7;
+}
+
+
+.countdown {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 25px 0 35px;
+}
+
+
+.time-box {
+    min-width: 80px;
+}
+
+
+.time-box span {
+
+    display: block;
+
+    font-size: clamp(32px, 7vw, 48px);
+
+    font-weight: bold;
+}
+
+
+.time-box small {
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    opacity: 0.55;
+}
+
+
+.colon {
+
+    font-size: 32px;
+
+    opacity: 0.45;
+}
+
+
+/* LOCKED BOX */
+
+.surprise-box {
+
+    min-height: 190px;
+
+    padding: 30px 20px;
+
+    border-radius: 22px;
+
+    border: 1px solid rgba(255,255,255,0.16);
+
+    background: rgba(0,0,0,0.18);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    transition: 0.8s ease;
+}
+
+
+#lock {
+
+    font-size: 42px;
+
+    margin-bottom: 12px;
+
+}
+
+
+#lockedMessage h2 {
+
+    font-size: 22px;
+
+    font-weight: normal;
+
+    margin: 5px 0 10px;
+}
+
+
+#lockedMessage p {
+
+    margin: 5px;
+
+    font-size: 16px;
+
+}
+
+
+#lockedMessage span {
+
+    font-size: 13px;
+
+    opacity: 0.55;
+}
+
+
+/* BOTTOM TEXT */
+
+.bottom-message {
+
+    margin-top: 28px;
+
+    font-style: italic;
+
+    opacity: 0.55;
+}
+
+
+/* =========================
+   MIDNIGHT CELEBRATION
+   ========================= */
+
+.celebration {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #633653,
+            #241321 60%,
+            #10080e
+        );
+
+    animation: celebrationFade 1.5s ease;
+}
+
+
+.hidden {
+    display: none;
+}
+
+
+.celebration-content {
+
+    width: min(90%, 650px);
+
+    animation: celebrationAppear 1.6s ease;
+
+}
+
+
+.big-heart {
+
+    font-size: 85px;
+
+    animation: heartbeat 1.2s infinite;
+
+}
+
+
+.celebration-small {
+
+    font-size: 15px;
+
+    letter-spacing: 4px;
+
+    opacity: 0.7;
+}
+
+
+.celebration h2 {
+
+    font-size: clamp(48px, 10vw, 85px);
+
+    font-weight: normal;
+
     margin: 15px 0;
-    transform: scaleX(-1);
+
+}
+
+
+.celebration-content > p {
+
+    font-size: 19px;
+
+    opacity: 0.85;
+}
+
+
+.final-message {
+
+    margin-top: 35px;
+
+    padding: 22px;
+
+    border-radius: 18px;
+
+    background: rgba(255,255,255,0.07);
+
+    border: 1px solid rgba(255,255,255,0.13);
+
+}
+
+
+.final-message p {
+
+    margin: 0 0 12px;
+
+    font-size: 16px;
+
+    opacity: 0.8;
+}
+
+
+.final-message strong {
+
+    font-size: 18px;
+
+    font-weight: normal;
+}
+
+
+/* ANIMATIONS */
+
+@keyframes heartbeat {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
+
+}
+
+
+@keyframes pageAppear {
+
+    from {
+        opacity: 0;
+
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes celebrationFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes celebrationAppear {
+
+    from {
+        opacity: 0;
+
+        transform: scale(0.85);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: scale(1);
+    }
+
+}
+
+
+/* PHONE */
+
+@media (max-width: 600px) {
+
+    .card {
+
+        padding: 40px 20px;
+
+    }
+
+
+    .countdown {
+
+        gap: 5px;
+
+    }
+
+
+    .time-box {
+
+        min-width: 58px;
+
+    }
+
+
+    .colon {
+
+        font-size: 23px;
+
+    }
+
 }
