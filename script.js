@@ -1,149 +1,140 @@
-// ========================================
-// 🧪 TEST MODE — 1 MINUTE
-// ========================================
+const daysElement = document.getElementById("days");
+const hoursElement = document.getElementById("hours");
+const minutesElement = document.getElementById("minutes");
+const secondsElement = document.getElementById("seconds");
 
-const daysEl = document.getElementById("days");
-const hoursEl = document.getElementById("hours");
-const minutesEl = document.getElementById("minutes");
-const secondsEl = document.getElementById("seconds");
-
-const lock = document.getElementById("lock");
-const lockedMessage = document.getElementById("lockedMessage");
-const bottomMessage = document.getElementById("bottomMessage");
 const celebration = document.getElementById("celebration");
+const lock = document.getElementById("lock");
+const lockedTitle = document.getElementById("locked-title");
+const lockedText = document.getElementById("locked-text");
 
-// 1 minute from when the page loads
-const targetTime = new Date(Date.now() + 60 * 1000);
 
-let unlocked = false;
+// September 3, 2026 — 12:00 AM IST
+const targetTime =
+    new Date("2026-09-03T00:00:00+05:30").getTime();
 
-function updateCountdown() {
+let finished = false;
 
-    const now = new Date();
-    const difference = targetTime.getTime() - now.getTime();
 
-    if (difference <= 0) {
+function updateTimer() {
 
-        daysEl.textContent = "00";
-        hoursEl.textContent = "00";
-        minutesEl.textContent = "00";
-        secondsEl.textContent = "00";
+    const remaining = targetTime - Date.now();
 
-        unlockSurprise();
+    if (remaining <= 0) {
+
+        daysElement.textContent = "00";
+        hoursElement.textContent = "00";
+        minutesElement.textContent = "00";
+        secondsElement.textContent = "00";
+
+        finish();
+
         return;
     }
 
-    const totalSeconds = Math.floor(difference / 1000);
 
-    const days = Math.floor(totalSeconds / 86400);
-    const hours = Math.floor((totalSeconds % 86400) / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
+    const totalSeconds =
+        Math.floor(remaining / 1000);
 
-    daysEl.textContent = String(days).padStart(2, "0");
-    hoursEl.textContent = String(hours).padStart(2, "0");
-    minutesEl.textContent = String(minutes).padStart(2, "0");
-    secondsEl.textContent = String(seconds).padStart(2, "0");
+
+    const days =
+        Math.floor(totalSeconds / 86400);
+
+    const hours =
+        Math.floor((totalSeconds % 86400) / 3600);
+
+    const minutes =
+        Math.floor((totalSeconds % 3600) / 60);
+
+    const seconds =
+        totalSeconds % 60;
+
+
+    daysElement.textContent =
+        String(days).padStart(2, "0");
+
+    hoursElement.textContent =
+        String(hours).padStart(2, "0");
+
+    minutesElement.textContent =
+        String(minutes).padStart(2, "0");
+
+    secondsElement.textContent =
+        String(seconds).padStart(2, "0");
 }
 
 
-// ========================================
-// 🔓 UNLOCK SURPRISE
-// ========================================
+function finish() {
 
-function unlockSurprise() {
+    if (finished) return;
 
-    if (unlocked) return;
+    finished = true;
 
-    unlocked = true;
-
-    // Unlock the box
     lock.textContent = "🔓";
 
-    lockedMessage.innerHTML = `
-        <h2>✨ It's time.</h2>
-        <p>Your surprise is finally unlocked ❤️</p>
-    `;
+    lockedTitle.textContent =
+        "It's time! ✨";
 
-    bottomMessage.textContent =
-        "The surprise is unlocked. ❤️";
+    lockedText.textContent =
+        "Your surprise is finally unlocked. ❤️";
 
-    // FORCE THE CELEBRATION TO SHOW
-    celebration.classList.remove("hidden");
-    celebration.style.display = "flex";
-    celebration.style.opacity = "1";
-    celebration.style.visibility = "visible";
+    celebration.classList.add("show");
 
-    // Start hearts/confetti
-    startCelebration();
-}
+    createHearts();
 }
 
 
-// ========================================
-// 🎉 CELEBRATION
-// ========================================
+function createHearts() {
 
-function startCelebration() {
+    for (let i = 0; i < 100; i++) {
 
-    for (let i = 0; i < 80; i++) {
+        const heart =
+            document.createElement("div");
 
-        const piece = document.createElement("div");
+        heart.textContent =
+            Math.random() > 0.5
+                ? "❤️"
+                : "✨";
 
-        piece.textContent =
-            Math.random() > 0.5 ? "✨" : "❤️";
+        heart.style.position = "fixed";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "-30px";
+        heart.style.fontSize =
+            15 + Math.random() * 25 + "px";
 
-        piece.style.position = "fixed";
-        piece.style.left = Math.random() * 100 + "vw";
-        piece.style.top = "-30px";
-        piece.style.fontSize =
-            (15 + Math.random() * 20) + "px";
-        piece.style.zIndex = "9999";
-        piece.style.pointerEvents = "none";
+        heart.style.zIndex = "2000";
+        heart.style.pointerEvents = "none";
 
-        document.body.appendChild(piece);
+        document.body.appendChild(heart);
 
-        const duration =
-            2000 + Math.random() * 3000;
-
-        piece.animate(
-            [
+        const animation =
+            heart.animate(
+                [
+                    {
+                        transform:
+                            "translateY(0) rotate(0deg)",
+                        opacity: 1
+                    },
+                    {
+                        transform:
+                            `translateY(110vh) rotate(${Math.random() * 720}deg)`,
+                        opacity: 0
+                    }
+                ],
                 {
-                    transform: "translateY(0) rotate(0deg)",
-                    opacity: 1
-                },
-                {
-                    transform:
-                        `translateY(110vh) rotate(${Math.random() * 720}deg)`,
-                    opacity: 0
+                    duration:
+                        2500 + Math.random() * 3000,
+                    easing: "linear"
                 }
-            ],
-            {
-                duration: duration,
-                easing: "ease-out"
-            }
-        );
+            );
 
-        setTimeout(() => {
-            piece.remove();
-        }, duration);
+        animation.onfinish = () => {
+            heart.remove();
+        };
     }
 }
 
 
-// ========================================
-// ⏳ START
-// ========================================
+updateTimer();
 
-updateCountdown();
-
-const timer = setInterval(() => {
-
-    if (unlocked) {
-        clearInterval(timer);
-        return;
-    }
-
-    updateCountdown();
-
-}, 1000);
+setInterval(updateTimer, 250);
