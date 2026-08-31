@@ -9,10 +9,9 @@ const lockedTitle = document.getElementById("locked-title");
 const lockedText = document.getElementById("locked-text");
 
 
-// 30 SECOND TEST
+// September 3, 2026 — 12:00 AM IST
 const targetTime =
-    new Date(Date.now() + 30 * 1000).getTime();
-
+    new Date("2026-09-03T00:00:00+05:30").getTime();
 let finished = false;
 
 
