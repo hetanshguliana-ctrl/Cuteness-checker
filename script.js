@@ -14,7 +14,6 @@ const targetTime =
 
 let finished = false;
 
-
 function updateTimer() {
 
     const remaining = targetTime - Date.now();
